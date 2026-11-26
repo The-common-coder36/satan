@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LogiTrack — Sign in</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+<style>
+  :root{
+    --navy-900:#0f2740;
+    --navy-800:#16324f;
+    --orange-500:#e8790f;
+    --orange-600:#d5680a;
+    --ink:#1e2b3a;
+    --muted:#7c8a9a;
+    --card-bg:#ffffff;
+    --page-bg:#eef1f5;
+  }
+
+  *{ box-sizing:border-box; }
+
+  body{
+    font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    background:var(--page-bg);
+    min-height:100vh;
+    color:var(--ink);
+  }
+
+  .split-wrap{
+    /* min-height:100vh; */
+    display:flex;
+    width:80%;
+    margin: 15px auto;
+  }
+
+  /* LEFT PANEL */
+  .hero-panel{
+    position:relative;
+    flex:1 1 50%;
+    background:
+      linear-gradient(155deg, rgba(15,39,64,.94) 10%, rgba(22,50,79,.88) 55%, rgba(15,39,64,.95) 100%),
+      url('https://images.unsplash.com/photo-1494412651409-8963ce7935a7?auto=format&fit=crop&w=1400&q=80') center/cover;
+    color:#fff;
+    padding:40px 70px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    overflow:hidden;
+  }
+
+  .hero-panel::before{
+    content:"";
+    position:absolute;
+    top:-60px; left:-60px;
+    width:220px; height:220px;
+    border-radius:50%;
+    background:rgba(232,121,15,.12);
+  }
+  .hero-panel::after{
+    content:"";
+    position:absolute;
+    bottom:-90px; right:-40px;
+    width:260px; height:260px;
+    border-radius:50%;
+    background:rgba(255,255,255,.05);
+  }
+
+  .brand-row{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:44px;
+    position:relative;
+    z-index:2;
+  }
+  .brand-logo{
+    width:42px; height:42px;
+    border-radius:10px;
+    background:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--navy-900);
+    font-size:18px;
+  }
+  .brand-name{
+    font-size:1.35rem;
+    font-weight:700;
+    letter-spacing:.2px;
+  }
+  .brand-name .accent{ color:var(--orange-500); }
+
+  .hero-title{
+    position:relative;
+    z-index:2;
+    font-size:2.4rem;
+    font-weight:800;
+    line-height:1.2;
+    margin-bottom:18px;
+  }
+  .hero-title .accent{ color:var(--orange-500); display:block; }
+
+  .hero-sub{
+    position:relative;
+    z-index:2;
+    color:rgba(255,255,255,.72);
+    max-width:420px;
+    margin-bottom:34px;
+    font-size:.98rem;
+  }
+
+  .feature-list{
+    position:relative;
+    z-index:2;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    margin-bottom:36px;
+  }
+  .feature-item{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:10px;
+    padding:12px 16px;
+    font-size:.92rem;
+    font-weight:500;
+    backdrop-filter:blur(2px);
+  }
+  .feature-icon{
+    width:32px; height:32px;
+    flex:0 0 32px;
+    border-radius:8px;
+    background:rgba(232,121,15,.85);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:.85rem;
+  }
+
+  .trust-note{
+    position:relative;
+    z-index:2;
+    color:rgba(255,255,255,.55);
+    font-size:.8rem;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .trust-note .dot{
+    width:6px; height:6px;
+    border-radius:50%;
+    background:var(--orange-500);
+  }
+
+  /* RIGHT PANEL */
+  .form-panel{
+    flex:1 1 50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:40px 24px;
+    background:var(--page-bg);
+  }
+
+  .signin-card{
+    background:var(--card-bg);
+    width:100%;
+    max-width:400px;
+    border-radius:16px;
+    padding:40px 36px 32px;
+    box-shadow:0 20px 45px rgba(15,39,64,.10);
+  }
+
+  .signin-logo{
+    width:52px; height:52px;
+    border-radius:12px;
+    background:var(--navy-900);
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:1.2rem;
+    margin:0 auto 16px;
+  }
+
+  .signin-title{
+    text-align:center;
+    font-weight:800;
+    font-size:1.5rem;
+    color:var(--navy-900);
+    margin-bottom:4px;
+  }
+  .signin-sub{
+    text-align:center;
+    color:var(--muted);
+    font-size:.88rem;
+    margin-bottom:26px;
+  }
+
+  .form-label{
+    font-weight:600;
+    font-size:.85rem;
+    color:var(--ink);
+  }
+
+  .input-icon-group{
+    position:relative;
+  }
+  .input-icon-group i.leading{
+    position:absolute;
+    left:14px; top:50%;
+    transform:translateY(-50%);
+    color:#a7b0bb;
+    font-size:.9rem;
+    pointer-events:none;
+  }
+  .input-icon-group .form-control{
+    padding-left:40px;
+  }
+  .input-icon-group .toggle-eye{
+    position:absolute;
+    right:14px; top:50%;
+    transform:translateY(-50%);
+    color:#a7b0bb;
+    cursor:pointer;
+    background:none;
+    border:none;
+    font-size:.95rem;
+  }
+
+  .form-control{
+    height:46px;
+    border-radius:10px;
+    border:1px solid #e2e6eb;
+    font-size:.92rem;
+  }
+  .form-control:focus{
+    border-color:var(--orange-500);
+    box-shadow:0 0 0 3px rgba(232,121,15,.15);
+  }
+
+  .forgot-link{
+    color:var(--orange-500);
+    font-size:.82rem;
+    font-weight:600;
+    text-decoration:none;
+  }
+  .forgot-link:hover{ text-decoration:underline; }
+
+  .btn-signin{
+    background:linear-gradient(180deg, var(--orange-500), var(--orange-600));
+    border:none;
+    height:48px;
+    border-radius:10px;
+    color:#fff;
+    font-weight:700;
+    font-size:.95rem;
+    width:100%;
+    letter-spacing:.2px;
+    box-shadow:0 8px 18px rgba(213,104,10,.28);
+    transition:filter .15s ease, transform .15s ease;
+  }
+  .btn-signin:hover{ filter:brightness(1.05); transform:translateY(-1px); color:#fff; }
+  .btn-signin:active{ transform:translateY(0); }
+
+  .register-line{
+    text-align:center;
+    font-size:.85rem;
+    color:var(--muted);
+    margin-top:18px;
+  }
+  .register-line a{
+    color:var(--orange-500);
+    font-weight:700;
+    text-decoration:none;
+  }
+  .register-line a:hover{ text-decoration:underline; }
+
+  .back-home{
+    display:block;
+    text-align:center;
+    margin-top:10px;
+    font-size:.82rem;
+    color:var(--muted);
+    text-decoration:none;
+  }
+  .back-home:hover{ color:var(--ink); }
+
+  .was-validated .form-control:invalid,
+  .form-control.is-invalid{
+    border-color:#e0554f;
+  }
+  .invalid-feedback{ font-size:.78rem; }
+
+  @media (max-width: 991px){
+    .split-wrap{ flex-direction:column; }
+    .hero-panel{ padding:40px 30px; min-height:340px; }
+    .hero-title{ font-size:1.8rem; }
+    .form-panel{ padding:30px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="split-wrap">
+
+  <!-- LEFT: BRAND / HERO PANEL -->
+  <div class="hero-panel">
+    <div class="brand-row">
+      <div class="brand-logo"><i class="fa-solid fa-truck-fast"></i></div>
+      <div class="brand-name">Logi<span class="accent">Track</span></div>
+    </div>
+
+    <h1 class="hero-title">
+      Welcome back
+      <span class="accent">to LogiTrack</span>
+    </h1>
+    <p class="hero-sub">The integrated logistics platform for freight, customs, warehousing and fleet management.</p>
+
+    <div class="feature-list">
+      <div class="feature-item">
+        <div class="feature-icon"><i class="fa-solid fa-box"></i></div>
+        End-to-end shipment tracking
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon"><i class="fa-solid fa-shield-halved"></i></div>
+        Digital customs clearance
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon"><i class="fa-solid fa-truck"></i></div>
+        Fleet management & GPS
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon"><i class="fa-solid fa-warehouse"></i></div>
+        Warehousing & inventory
+      </div>
+    </div>
+
+    <div class="trust-note"><span class="dot"></span> Trusted for supply-chain operations across the region</div>
+  </div>
+
+  <!-- RIGHT: SIGN-IN FORM -->
+  <div class="form-panel">
+    <div class="signin-card">
+      <div class="signin-logo"><i class="fa-solid fa-truck-fast"></i></div>
+      <h2 class="signin-title">Sign in</h2>
+      <p class="signin-sub">Access your logistics workspace</p>
+
+      <form id="signinForm" class="needs-validation" novalidate>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <div class="input-icon-group">
+            <i class="fa-regular fa-envelope leading"></i>
+            <input type="email" class="form-control" id="email" placeholder="you@company.com" required>
+            <div class="invalid-feedback">Please enter a valid email address.</div>
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <div class="d-flex justify-content-between align-items-center">
+            <label for="password" class="form-label mb-1">Password</label>
+            <a href="#" class="forgot-link">Forgot?</a>
+          </div>
+          <div class="input-icon-group">
+            <i class="fa-solid fa-lock leading"></i>
+            <input type="password" class="form-control" id="password" placeholder="Min. 8 characters" minlength="8" required>
+            <button type="button" class="toggle-eye" id="togglePassword"><i class="fa-regular fa-eye"></i></button>
+            <div class="invalid-feedback">Password must be at least 8 characters.</div>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-signin">
+          <i class="fa-solid fa-right-to-bracket me-2"></i>Sign in
+        </button>
+      </form>
+
+      <p class="register-line">Don't have an account? <a href="#">Register</a></p>
+      <a href="#" class="back-home"><i class="fa-solid fa-arrow-left me-1"></i> Back to home</a>
+    </div>
+  </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+<script>
+  // Toggle password visibility
+  const toggleBtn = document.getElementById('togglePassword');
+  const passwordInput = document.getElementById('password');
+  toggleBtn.addEventListener('click', () => {
+    const isPassword = passwordInput.type === 'password';
+    passwordInput.type = isPassword ? 'text' : 'password';
+    toggleBtn.innerHTML = isPassword
+      ? '<i class="fa-regular fa-eye-slash"></i>'
+      : '<i class="fa-regular fa-eye"></i>';
+  });
+
+  // Simple client-side validation + submit handling
+  const form = document.getElementById('signinForm');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (!form.checkValidity()) {
+      form.classList.add('was-validated');
+      return;
+    }
+
+    const email = document.getElementById('email').value;
+    const submitBtn = form.querySelector('.btn-signin');
+    const originalHTML = submitBtn.innerHTML;
+
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Signing in...';
+
+    // Simulate an auth request
+    setTimeout(() => {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalHTML;
+      alert('Signed in as ' + email + ' (demo only — connect this to your real auth API).');
+    }, 1200);
+  });
+</script>
+
+</body>
+</html>
